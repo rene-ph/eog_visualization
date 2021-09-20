@@ -10,7 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Client } from '../../services/client-apollo';
 import { getMetrics } from '../../services/queries/metrics';
 import { add } from '../../redux/slice/metrics.slice';
-import { metric } from '../../redux/selector/metrics.selector';
+import { metric, selectedMetric } from '../../redux/selector/metrics.selector';
+import { MetricTypes } from '../../components/CardMetric/Types';
 import {
   Chart,
   MultiSelect,
@@ -19,6 +20,7 @@ import {
 
 const Metric: FC = () => {
   const getMetric = useSelector(metric);
+  const getSelectedMetric = useSelector(selectedMetric);
   const getMetricsData = useQuery<any>(getMetrics);
   const dispatch = useDispatch();
 
@@ -39,7 +41,14 @@ const Metric: FC = () => {
       </Grid>
       <Grid container>
         <Grid item xs={3} lg={3}>
-          <CardMetric />
+          { getSelectedMetric.length > 0 ? getSelectedMetric.map(
+            (currentMetric: MetricTypes) => (
+              <CardMetric
+                metricType={currentMetric}
+                key={currentMetric}
+              />
+            ),
+          ) : null}
         </Grid>
         <Grid item xs={9} lg={9}>
           <Chart />
