@@ -19,11 +19,13 @@ export const graphSlice = createSlice({
       if (state.graph[action.payload.type].length > 0) {
         state.graph[action.payload.type] = [...state.graph[action.payload.type], {
           date: action.payload.date,
+          dateFormatted: action.payload.dateFormatted,
           [action.payload.type]: action.payload.value,
         }];
       } else {
         state.graph[action.payload.type] = [{
           date: action.payload.date,
+          dateFormatted: action.payload.dateFormatted,
           [action.payload.type]: action.payload.value,
         }];
       }

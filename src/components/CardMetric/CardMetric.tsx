@@ -19,6 +19,7 @@ import CardMetricViewModel from './CardMetricViewModel';
 import { useStyles } from './card-metric.styles';
 import AlertMessage from '../AlertMessage/AlertMessage';
 import { TypeError } from '../AlertMessage/Types';
+import { xAxisTooltipFormatter } from '../../utils/time';
 
 const CardMetric: FC<CardMetricViewModel> = ({ metricType }) => {
   const classes = useStyles();
@@ -41,6 +42,7 @@ const CardMetric: FC<CardMetricViewModel> = ({ metricType }) => {
       const newMeasurement = {
         type: metricType,
         date: currentTimeOfMeasurement,
+        dateFormatted: xAxisTooltipFormatter(currentTimeOfMeasurement),
         value: data?.getLastKnownMeasurement.value,
       };
       dispatch(add(newMeasurement));
